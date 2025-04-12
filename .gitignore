@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environments
+venv/
+.env
+
+# Logs
+*.log
+
+# IDE/Editor settings
+.vscode/
+.idea/
+*.iml
+
+# Node.js (if applicable)
+node_modules/
