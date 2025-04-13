@@ -8,6 +8,10 @@ class ItemController:
     def get_items(self):
         items = self.service.get_all_items()
         return jsonify([item.to_dict() for item in items])
+    
+    def get_items_by_category(self, category_id):
+        items = self.service.get_items_by_category(category_id)
+        return jsonify([item.to_dict() for item in items]) 
 
     def create_item(self):
         data = request.get_json()
