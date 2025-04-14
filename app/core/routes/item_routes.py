@@ -16,6 +16,10 @@ def create_item():
 def get_item(item_id):
     return item_controller.get_item(item_id)
 
+@mod.route('/category/<int:category_id>', methods=['GET'])
+def get_items_by_category(category_id):
+    return item_controller.get_items_by_category(category_id)
+
 @mod.route('/<int:item_id>', methods=['PUT'])
 def update_item(item_id):
     return item_controller.update_item(item_id)

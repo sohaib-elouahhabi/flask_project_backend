@@ -14,6 +14,10 @@ class ItemService:
     def get_item_by_id(self, item_id):
         return Item.query.get(item_id)
     
+    def get_items_by_category(self, category_id):
+        return Item.query.filter_by(category_id=category_id).all()
+    
+    
     def update_item(self, item_id, data):
         item = self.get_item_by_id(item_id)
         if item:
