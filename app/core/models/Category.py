@@ -1,5 +1,4 @@
 from app.bootstrap import db
-import uuid
 
 class Category(db.Model):
     __tablename__ = 'categories'
