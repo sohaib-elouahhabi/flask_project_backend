@@ -1,0 +1,11 @@
+[run]
+omit =
+    tests/*                 # Don't include test code in the coverage
+    */__init__.py           # Skip package init files
+    app/config/*            # Skip app config (usually constants/settings)
+    migrations/*            # Skip Alembic migration files
+
+
+[report]
+show_missing = True
+skip_covered = False
