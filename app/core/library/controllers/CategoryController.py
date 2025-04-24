@@ -1,5 +1,7 @@
 from flask import request, jsonify
 from app.core.library.services.CategoryService import CategoryService
+from app.core.library.requests.CategoryRequestModel import CategoryRequestModel
+from pydantic import ValidationError
 
 
 class CategoryController:
@@ -25,7 +27,16 @@ class CategoryController:
 
     def create_category(self):
         data = request.get_json()
-        new_category = self.service.create_category(data)
+        
+        try:
+            category_data = CategoryRequestModel(**data)
+        except ValidationError as e:
+            return jsonify({"error": e.errors()}), 400
+
+        category_data_dict = category_data.model_dump() 
+
+        new_category = self.service.create_category(category_data_dict)
+
         return jsonify(new_category.to_dict()), 201
     
     def get_category_by_id(self, category_id):
@@ -36,9 +47,15 @@ class CategoryController:
     
     def update_category(self, category_id):
         data = request.get_json()
-        updated_category = self.service.update_category(category_id, data)
+        try:
+        
+            category_data = CategoryRequestModel(**data)  
+        except ValidationError as e:
+            return jsonify({"error": e.errors()}), 400
+        category_data_dict = category_data.model_dump()
+        updated_category = self.service.update_category(category_id, category_data_dict)
         if updated_category:
-            return jsonify(updated_category.to_dict())
+            return jsonify(updated_category.to_dict()), 200
         return jsonify({"error": "Category not found"}), 404
     
     def delete_category(self, category_id):
