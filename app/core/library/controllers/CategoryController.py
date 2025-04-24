@@ -28,16 +28,31 @@ class CategoryController:
     def create_category(self):
         data = request.get_json()
         
+        if not data:
+            return jsonify({"error": "No data provided"}), 400
+            
         try:
-            category_data = CategoryRequestModel(**data)
+            category_data = CategoryRequestModel.model_validate(data)
+            
+           
+            new_category = self.service.create_category(category_data.model_dump())
+            
+            return jsonify(new_category.to_dict()), 201
+            
         except ValidationError as e:
-            return jsonify({"error": e.errors()}), 400
-
-        category_data_dict = category_data.model_dump() 
-
-        new_category = self.service.create_category(category_data_dict)
-
-        return jsonify(new_category.to_dict()), 201
+            # Format Pydantic errors for better client response
+            errors = []
+            for error in e.errors():
+                field = ".".join(str(loc) for loc in error['loc'])
+                errors.append({
+                    'field': field,
+                    'message': error['msg'],
+                    'type': error['type']
+                })
+            return jsonify({"errors": errors}), 400
+            
+        except Exception as e:
+            return jsonify({"error": str(e)}), 500
     
     def get_category_by_id(self, category_id):
         category = self.service.get_category_by_id(category_id)
