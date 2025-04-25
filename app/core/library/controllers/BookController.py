@@ -1,5 +1,7 @@
 from flask import request, jsonify
 from app.core.library.services.BookService import BookService
+from app.core.library.requests.BookRequestModel import BookRequestModel
+from app.core.common.utils.validation import validate_request
 
 
 class BookController:
@@ -29,17 +31,17 @@ class BookController:
     def get_books_by_category(self, category_id):
         books = self.service.get_books_by_category(category_id)
         return jsonify([book.to_dict() for book in books])
-
-    def create_book(self):
-        data = request.get_json()
-        new_book = self.service.create_book(data)
+    
+    @validate_request(BookRequestModel)
+    def create_book(self, validated_data):
+        new_book = self.service.create_book(validated_data.model_dump())
         return jsonify(new_book.to_dict()), 201
 
-    def update_book(self, book_id):
-        data = request.get_json()
-        updated_book = self.service.update_book(book_id, data)
+    @validate_request(BookRequestModel)
+    def update_book(self, book_id, validated_data):
+        updated_book = self.service.update_book(book_id, validated_data.model_dump())
         if updated_book:
-            return jsonify(updated_book.to_dict())
+            return jsonify(updated_book.to_dict()), 200
         return jsonify({"error": "Book not found"}), 404
 
     def delete_book(self, book_id):
