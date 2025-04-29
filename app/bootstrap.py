@@ -10,6 +10,6 @@ def setup_extensions(app):
 
 def setup_config(app):
     app.config.from_mapping(
-        SQLALCHEMY_DATABASE_URI='postgresql://postgres:1234@localhost/flask_db',
+        SQLALCHEMY_DATABASE_URI='postgresql://postgres:1234@localhost:5432/flask_db',
         SQLALCHEMY_TRACK_MODIFICATIONS=False
     )

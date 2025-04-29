@@ -19,4 +19,4 @@ COPY . /app/
 
 EXPOSE 5000
 
-CMD ["pipenv", "run", "python", "app.py"]
+CMD ["pipenv", "run", "gunicorn", "-w", "4", "-b", "0.0.0.0:5000", "wsgi:app"]
