@@ -34,3 +34,14 @@ coverage run -m pytest tests/
 coverage html
 htmlcov/index.html
 ```
+
+5. Build Docker image and run database migration inside docker
+   5.1
+   change the variable localhost:5432 to db:5432
+   SQLALCHEMY_DATABASE_URI='postgresql://postgres:1234@localhost:5432/flask_db'.
+   Then run the commands below.
+
+```bash
+docker compose up --build
+docker exec -it flask-app pipenv run flask db upgrade
+```
