@@ -1,7 +1,7 @@
 import pytest
 from unittest.mock import Mock, patch
 from app.core.library.services.BookService import BookService
-from app.core.models.Book import Book
+from app.models.Book import Book
 
 
 class TestBookService:
