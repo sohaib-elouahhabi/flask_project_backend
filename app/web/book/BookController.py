@@ -2,6 +2,7 @@ from flask import Blueprint, request, jsonify
 from app.core.library.services.BookService import BookService
 from app.web.requests.BookRequestModel import BookRequestModel
 from app.web.common.utils.validation import validate_request
+from flask_jwt_extended import jwt_required
 
 # Create the blueprint instance
 book_blueprint = Blueprint('book', __name__)
@@ -11,6 +12,7 @@ service = BookService()
 
 # Define the route for getting books
 @book_blueprint.route('/', methods=['GET'])
+@jwt_required()
 def get_books():
     page = request.args.get('page', 1, type=int)
     per_page = request.args.get('per_page', 3, type=int)

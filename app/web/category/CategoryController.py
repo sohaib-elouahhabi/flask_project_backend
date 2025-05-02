@@ -2,6 +2,7 @@ from flask import Blueprint, request, jsonify
 from app.core.library.services.CategoryService import CategoryService
 from app.web.requests.CategoryRequestModel import CategoryRequestModel
 from app.web.common.utils.validation import validate_request
+from flask_jwt_extended import jwt_required
 
 # Create the blueprint instance
 category_blueprint = Blueprint('category', __name__)
@@ -11,6 +12,7 @@ service = CategoryService()
 
 # Define the route for getting categories
 @category_blueprint.route('/', methods=['GET'])
+@jwt_required()
 def get_categories():
     page = request.args.get('page', 1, type=int)
     per_page = request.args.get('per_page', 5, type=int)
