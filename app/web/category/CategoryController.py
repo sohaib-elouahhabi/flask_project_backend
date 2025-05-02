@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 from app.core.library.services.CategoryService import CategoryService
 from app.web.requests.CategoryRequestModel import CategoryRequestModel
-from app.core.common.utils.validation import validate_request
+from app.web.common.utils.validation import validate_request
 
 # Create the blueprint instance
 category_blueprint = Blueprint('category', __name__)

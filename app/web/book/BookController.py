@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 from app.core.library.services.BookService import BookService
 from app.web.requests.BookRequestModel import BookRequestModel
-from app.core.common.utils.validation import validate_request
+from app.web.common.utils.validation import validate_request
 
 # Create the blueprint instance
 book_blueprint = Blueprint('book', __name__)
