@@ -1,4 +1,4 @@
-from app.core.models.Book import Book
+from app.models.Book import Book
 from app.bootstrap import db
 
 

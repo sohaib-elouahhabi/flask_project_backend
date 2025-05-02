@@ -1,7 +1,7 @@
 import pytest
 from unittest.mock import Mock, patch
 from app.core.library.services.CategoryService import CategoryService
-from app.core.models.Category import Category
+from app.models.Category import Category
 
 class TestCategoryService:
 

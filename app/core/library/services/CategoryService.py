@@ -1,4 +1,4 @@
-from app.core.models.Category import Category
+from app.models.Category import Category
 from app.bootstrap import db
 
 
