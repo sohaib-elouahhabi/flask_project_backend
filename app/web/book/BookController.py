@@ -2,7 +2,10 @@ from flask import Blueprint, request, jsonify
 from app.core.library.services.BookService import BookService
 from app.web.requests.BookRequestModel import BookRequestModel
 from app.web.common.utils.validation import validate_request
+from app.web.common.authorization import authorize
 from flask_jwt_extended import jwt_required
+from app.models.UserRole import UserRole
+
 
 # Create the blueprint instance
 book_blueprint = Blueprint('book', __name__)
@@ -13,6 +16,7 @@ service = BookService()
 # Define the route for getting books
 @book_blueprint.route('/', methods=['GET'])
 @jwt_required()
+@authorize(UserRole.USER)
 def get_books():
     page = request.args.get('page', 1, type=int)
     per_page = request.args.get('per_page', 3, type=int)
@@ -29,6 +33,7 @@ def get_books():
 
 # Define the route for getting a book by ID
 @book_blueprint.route('/<int:book_id>', methods=['GET'])
+@authorize(UserRole.USER)
 def get_book_by_id(book_id):
     book = service.get_book_by_id(book_id)
     if book:
@@ -37,6 +42,7 @@ def get_book_by_id(book_id):
 
 # Define the route for getting books by category
 @book_blueprint.route('/category/<int:category_id>', methods=['GET'])
+@authorize(UserRole.USER)
 def get_books_by_category(category_id):
     books = service.get_books_by_category(category_id)
     return jsonify([book.to_dict() for book in books])

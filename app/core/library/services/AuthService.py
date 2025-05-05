@@ -16,11 +16,11 @@ class AuthService:
 
         if not bcrypt.verify(password, user.password):
             return None, "Invalid credentials"
-
-        access_token = create_access_token(identity=user.username)
-        access_token = create_access_token(identity=user.username)
-        print(decode_token(access_token))
-        print(access_token)
+        additional_claims = {"role": user.role.value}
+        access_token = create_access_token(identity=
+            user.username,
+            additional_claims=additional_claims
+            )
         return user, access_token
     
     def register(self, data):
