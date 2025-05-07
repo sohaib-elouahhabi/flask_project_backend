@@ -4,7 +4,7 @@ from app.bootstrap import db
 
 class CategoryService:
     def get_all_categories(self):
-        return Category.query.all()
+        return Category.not_deleted().all()
     
     def get_paginated_categories(self, page, per_page):
         return Category.query.paginate(page=page, per_page=per_page, error_out=False)
@@ -31,7 +31,6 @@ class CategoryService:
         category = Category.query.get(category_id)
         if not category:
             return None
-        db.session.delete(category)
-        db.session.commit()
+        category.soft_delete()
         return category
     

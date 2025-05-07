@@ -1,6 +1,7 @@
-from app.bootstrap import db 
+from app.bootstrap import db
+from .AuditMixin import AuditMixin
 
-class Book(db.Model):
+class Book(AuditMixin):
     __tablename__ = 'books'
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)

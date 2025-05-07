@@ -16,7 +16,7 @@ class AuthService:
 
         if not bcrypt.verify(password, user.password):
             return None, "Invalid credentials"
-        additional_claims = {"role": user.role.value}
+        additional_claims = {"role": user.role.value,'user_id': user.id}
         access_token = create_access_token(identity=
             user.username,
             additional_claims=additional_claims

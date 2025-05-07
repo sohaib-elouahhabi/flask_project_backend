@@ -3,6 +3,8 @@ from app.core.library.services.CategoryService import CategoryService
 from app.web.requests.CategoryRequestModel import CategoryRequestModel
 from app.web.common.utils.validation import validate_request
 from flask_jwt_extended import jwt_required
+from app.models.UserRole import UserRole
+from app.web.common.authorization import authorize
 
 # Create the blueprint instance
 category_blueprint = Blueprint('category', __name__)
@@ -37,6 +39,7 @@ def get_category_by_id(category_id):
 
 # Define the route for creating a new category
 @category_blueprint.route('/', methods=['POST'])
+@authorize(UserRole.USER)
 @validate_request(CategoryRequestModel)
 def create_category(validated_data):
     new_category = service.create_category(validated_data.model_dump())

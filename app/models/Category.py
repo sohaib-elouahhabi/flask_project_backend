@@ -1,6 +1,7 @@
 from app.bootstrap import db
+from .AuditMixin import AuditMixin
 
-class Category(db.Model):
+class Category(AuditMixin):
     __tablename__ = 'categories'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)

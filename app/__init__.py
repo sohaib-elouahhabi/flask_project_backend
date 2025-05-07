@@ -10,7 +10,7 @@ def create_app():
     app = Flask(__name__)
 
     app.config['JWT_SECRET_KEY'] = '80a99bb862112af114f20af5ed9723c1a33d021777234eae82a4b319079ddf32'
-    app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(minutes=1)  
+    app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(hours=1)  
     jwt = JWTManager(app)
 
     setup_config(app)
