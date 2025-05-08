@@ -56,6 +56,7 @@ def update_category(category_id, validated_data):
 
 # Define the route for deleting a category
 @category_blueprint.route('/<int:category_id>', methods=['DELETE'])
+@jwt_required()
 def delete_category(category_id):
     deleted_category = service.delete_category(category_id)
     if deleted_category:

@@ -7,7 +7,7 @@ class CategoryService:
         return Category.not_deleted().all()
     
     def get_paginated_categories(self, page, per_page):
-        return Category.query.paginate(page=page, per_page=per_page, error_out=False)
+        return Category.not_deleted().paginate(page=page, per_page=per_page, error_out=False)
 
     def create_category(self, data):
         category = Category(**data)
