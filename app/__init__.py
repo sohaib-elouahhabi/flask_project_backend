@@ -10,7 +10,12 @@ def create_app():
     app = Flask(__name__)
 
     app.config['JWT_SECRET_KEY'] = '80a99bb862112af114f20af5ed9723c1a33d021777234eae82a4b319079ddf32'
-    app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(hours=1)  
+    app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(minutes=45)
+    app.config['JWT_REFRESH_TOKEN_EXPIRES'] = timedelta(days=1)
+    app.config['JWT_TOKEN_LOCATION'] = ['headers', 'cookies']
+    app.config['JWT_ACCESS_COOKIE_PATH'] = '/'
+    app.config['JWT_REFRESH_COOKIE_PATH'] = '/refresh'
+    app.config['JWT_COOKIE_SECURE'] = False
     jwt = JWTManager(app)
 
     setup_config(app)

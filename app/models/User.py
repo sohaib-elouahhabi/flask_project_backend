@@ -12,6 +12,8 @@ class User(AuditMixin):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(128), nullable=False)
     role = db.Column(SqlEnum(UserRole), nullable=False, default=UserRole.USER)
+    last_login = db.Column(db.DateTime, nullable=True)
+    last_logged_out = db.Column(db.DateTime, nullable=True)
 
     def to_dict(self):
         return {

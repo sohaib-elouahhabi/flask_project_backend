@@ -62,7 +62,6 @@ class AuditMixin(db.Model):
                 user_id = get_jwt().get("user_id")
                 if user_id:
                     self.deleted_by = user_id
-                    print(user_id)
             except Exception as e:
                 print("JWT not available during soft delete:", e)
 
